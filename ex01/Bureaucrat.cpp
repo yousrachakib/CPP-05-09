@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:47:18 by yochakib          #+#    #+#             */
-/*   Updated: 2023/12/29 16:51:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2023/12/30 19:21:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,9 @@ const char* Bureaucrat::GradeTooHighException::what() const throw()
 const char* Bureaucrat::GradeTooLowException::what() const throw()
 {
     return "Grade too Low!";
+}
+
+void	Bureaucrat::signForm(const Form& obj)
+{
+	std::cout << *this << " signed " << obj << std::endl;
 }

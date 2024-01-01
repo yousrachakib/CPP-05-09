@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:47:18 by yochakib          #+#    #+#             */
-/*   Updated: 2023/12/30 19:21:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/01 20:05:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Bureaucrat::~Bureaucrat()
     
 }
 
-Bureaucrat::Bureaucrat(const Bureaucrat& copy)
+Bureaucrat::Bureaucrat(const Bureaucrat& copy) : name(copy.name) , grade(copy.grade)
 {
     *this = copy;
 }
@@ -81,7 +81,15 @@ const char* Bureaucrat::GradeTooLowException::what() const throw()
     return "Grade too Low!";
 }
 
-void	Bureaucrat::signForm(const Form& obj)
+void	Bureaucrat::signForm(Form& obj)
 {
-	std::cout << *this << " signed " << obj << std::endl;
+	try
+	{
+		obj.beSigned(*this);
+		std::cout << *this << " signed " << obj << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << *this << " couldn’t sign " << obj << " because " << this->getGrade() << " > " << obj.get_gradetosign() << std::endl;
+	}
 }

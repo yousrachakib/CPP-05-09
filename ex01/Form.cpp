@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 18:09:41 by yochakib          #+#    #+#             */
-/*   Updated: 2023/12/30 19:18:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/01 19:17:43 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ std::ostream& operator<<(std::ostream& os,const Form& obj)
 
 void  Form::beSigned(Bureaucrat& obj)
 {
-	if (obj.getGrade() >= this->grade_tosign)
+	if (obj.getGrade() > this->grade_tosign)
 		throw GradeTooLowException();
 	this->is_signed = true;
 }

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 19:07:18 by yochakib          #+#    #+#             */
-/*   Updated: 2023/12/30 19:20:22 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/01 20:05:45 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,20 @@
 
 int main()
 {
-    Bureaucrat A;
-	Form B("me", 12, 34);
-
-	A.signForm(B);
-	std::cout << B << std::endl;
+	try
+	{
+    	Bureaucrat A("hello", 13);
+		// Bureaucrat X(A);
+		Form B("hiiiii", 12, 34);
+		Form C(B);
+		// std::cout << X << std::endl;
+		// std::cout << C << std::endl;
+		// C.beSigned(A);
+		A.signForm(C);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 }

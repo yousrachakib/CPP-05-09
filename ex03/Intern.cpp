@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:10:11 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/04 19:18:19 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:57:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ Intern::Intern(const Intern& copy)
 }
 Intern& Intern::operator=(const Intern& other)
 {
+    (void)other;
     return (*this);
 }
 
@@ -41,14 +42,13 @@ AForm *makeShrubbery(std::string&  target)
 
 AForm *Intern::makeForm(std::string& name, std::string&  target)
 {
-    int i = 0;
     std::string Formtype [] = {"Presidential Creation", "Robotomy Creation", "Shrubbery Creation"};
     AForm *(*Internwork[])(std::string&) = { makePresidential , makeRobotomy, makeShrubbery};
     
     for (int i = 0; i < 3 ; i++ )
     {
         if (name == Formtype[i])
-            Internwork[i](target);
+            return Internwork[i](target);
     }
     return NULL;
 }

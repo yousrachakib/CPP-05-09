@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 22:51:51 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/04 19:16:31 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/14 16:36:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ class PresidentialPardonForm;
 class RobotomyRequestForm;
 class ShrubberyCreationForm;
 
-class Intern
+class Intern 
 {
-    Intern();
-    Intern(const Intern& copy);
-    ~Intern();
-    Intern& operator=(const Intern& other);
-   AForm *makeForm(std::string& name, std::string&  target);
+    public :
+        Intern();
+        Intern(const Intern& copy);
+        ~Intern();
+        Intern& operator=(const Intern& other);
+        AForm *makeForm(std::string& name, std::string&  target);
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/01 22:24:27 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/02 17:47:57 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:56:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void ShrubberyCreationForm::execute(Bureaucrat const& executor) const
 	std::ofstream	outputFile;
 	if (this->get_issigned() && executor.getGrade() <= this->get_grade_execute())
 	{
-		puts("hi");
+		puts("test");
 		filename.append("_shrubbery");
 		outputFile.open(filename);
 		if (!outputFile.is_open())

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:47:18 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/01 20:05:23 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/15 13:11:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,7 @@ Bureaucrat::Bureaucrat(const std::string input, int grade) : name(input)
         throw GradeTooLowException();
     this->grade = grade;
 }
-Bureaucrat::~Bureaucrat()
-{
-    
-}
+Bureaucrat::~Bureaucrat() {}
 
 Bureaucrat::Bureaucrat(const Bureaucrat& copy) : name(copy.name) , grade(copy.grade)
 {

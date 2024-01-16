@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:51 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/02 19:08:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:21:33 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 
 void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
+	static int checker;
+	
 	if (this->get_issigned() && executor.getGrade() <= this->get_grade_execute())
 	{
 		std::cout << "*Drilling noises*" << std::endl;
-		static int checker;
 		checker = checker % 2;
-		std::cout << checker << std::endl;
 		if (checker == 0)
 			std::cout << target << " has been robotomized successfully!" << std::endl;
 		else

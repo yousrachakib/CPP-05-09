@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 16:10:11 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/14 17:57:11 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:31:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,17 @@ AForm *makeShrubbery(std::string&  target)
 AForm *Intern::makeForm(std::string& name, std::string&  target)
 {
     std::string Formtype [] = {"Presidential Creation", "Robotomy Creation", "Shrubbery Creation"};
-    AForm *(*Internwork[])(std::string&) = { makePresidential , makeRobotomy, makeShrubbery};
+    
+    AForm*  (*Internwork[])(std::string&  target) = { makePresidential , makeRobotomy, makeShrubbery};
     
     for (int i = 0; i < 3 ; i++ )
     {
         if (name == Formtype[i])
+        {
+            std::cout << "Intern creates  " << name << std::endl;
             return Internwork[i](target);
+        }
     }
+    std::cout << "Intern couldn't create  " << name << std::endl;
     return NULL;
 }

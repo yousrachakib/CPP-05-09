@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:19:30 by yochakib          #+#    #+#             */
-/*   Updated: 2023/12/29 16:49:34 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:26:01 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ class Bureaucrat
             const char* what() const throw();
         };
 };
-
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& obj);
+
 
 #endif

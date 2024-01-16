@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 16:06:25 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/14 17:58:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/16 15:34:08 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int main()
 		Intern *someRandomIntern = NULL;
 		AForm* rrf;
 		std::string name = "Shrubbery Creation";
+		std::string name1 = "Presidential Creation";
+		std::string name2 = "Robotomy Creation";
 		std::string target = "Bender";
-		rrf = someRandomIntern->makeForm(name, target);
+		rrf = someRandomIntern->makeForm(name2, target);
 		rrf->beSigned(A);
 		rrf->execute(A);
+		delete rrf;
 	}
 	catch(const std::exception& e)
 	{

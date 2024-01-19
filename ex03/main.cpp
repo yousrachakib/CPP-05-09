@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 16:06:25 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/16 15:34:08 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:13:31 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int main()
 		std::string target = "Bender";
 		rrf = someRandomIntern->makeForm(name2, target);
 		rrf->beSigned(A);
-		rrf->execute(A);
+		// rrf->execute(A);
+		A.executeForm(*rrf);
 		delete rrf;
 	}
 	catch(const std::exception& e)

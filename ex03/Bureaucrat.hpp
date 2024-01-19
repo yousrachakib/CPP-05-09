@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:19:30 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/04 16:06:51 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:11:59 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ class Bureaucrat
         void    incrementGrade();
         void    decrementGrade();
 		void	signForm(AForm& obj);
+		void	executeForm(AForm const & form);
         class GradeTooHighException : public std::exception
         {
             const char* what() const throw();

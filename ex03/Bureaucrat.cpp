@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 12:47:18 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/01 22:26:57 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/19 16:00:56 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,18 @@ void	Bureaucrat::signForm(AForm& obj)
 	{
 		std::cout << *this << " couldn’t sign " << obj << " because " << this->getGrade() << " > " << obj.get_gradetosign() << std::endl;
 	}
+}
+
+void	Bureaucrat::executeForm(AForm const & form)
+{
+	try
+	{
+		std::cout << this->getName() << " executed " << form.get_name() << std::endl;
+		form.execute(*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	
 }

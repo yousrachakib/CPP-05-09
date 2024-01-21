@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 20:23:22 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/02 20:38:04 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/21 20:28:42 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,19 @@ PresidentialPardonForm& PresidentialPardonForm::operator=(const PresidentialPard
 
 PresidentialPardonForm::~PresidentialPardonForm() {}
 
-void PresidentialPardonForm::execute(Bureaucrat const & executor) const
+int PresidentialPardonForm::execute(Bureaucrat const & executor) const
 {
 	if (this->get_issigned() && executor.getGrade() <= this->get_grade_execute())
 	{
-		 std::cout << target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
+		std::cout << target << " has been pardoned by Zaphod Beeblebrox." << std::endl;
+		return (1);
 	}
 	else if (!this->get_issigned())
 	{
 		std::cout << target << " couldn't been pardoned by Zaphod Beeblebrox." << std::endl;
+		return (0);
 	}
 	else
 		throw PresidentialPardonForm::GradeTooLowException();
+	return (0);	
 }

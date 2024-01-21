@@ -32,7 +32,7 @@ class AForm
         AForm(const AForm& copy);
         AForm& operator=(const AForm& other);
         virtual ~AForm();
-		virtual	void execute(Bureaucrat const & executor) const = 0;
+		virtual	int execute(Bureaucrat const & executor) const = 0;
         class GradeTooHighException : public std::exception
         {
             const char* what() const throw();

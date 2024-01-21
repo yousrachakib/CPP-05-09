@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 17:59:58 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/15 21:03:45 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:18:53 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ class AForm
         AForm(const AForm& copy);
         AForm& operator=(const AForm& other);
         virtual ~AForm();
-		virtual	void execute(Bureaucrat const & executor) const = 0;
+		virtual	int execute(Bureaucrat const & executor) const = 0;
         class GradeTooHighException : public std::exception
         {
             const char* what() const throw();

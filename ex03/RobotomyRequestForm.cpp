@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:41:51 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/15 18:21:33 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/15 18:19:32 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ RobotomyRequestForm&	RobotomyRequestForm::operator=(const RobotomyRequestForm& o
 	return (*this);
 }
 
-void RobotomyRequestForm::execute(Bureaucrat const & executor) const
+int RobotomyRequestForm::execute(Bureaucrat const & executor) const
 {
 	static int checker;
 	
@@ -47,12 +47,14 @@ void RobotomyRequestForm::execute(Bureaucrat const & executor) const
 		else
 			std::cout << "Robotomy failed for " << target << "." << std::endl;
 		checker++;
+		return (1);
 	}
 	else if (!this->get_issigned())
 	{
-			std::cout << "Cannot execute the form. It is not signed." << std::endl;
-            return;
+		std::cout << "Cannot execute the form. It is not signed." << std::endl;
+        return (0);
 	}
 	else
-		throw RobotomyRequestForm::GradeTooLowException();	
+		throw RobotomyRequestForm::GradeTooLowException();
+    return (0);
 }

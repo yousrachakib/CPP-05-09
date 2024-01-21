@@ -28,5 +28,4 @@ int main()
     {
         std::cerr << e.what() << std::endl;
     }
-    
 }

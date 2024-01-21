@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 18:09:41 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/14 16:19:30 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/02 16:21:28 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ AForm::AForm(const AForm& copy) : name(copy.name) , is_signed(copy.is_signed) , 
     *this = copy;
 }
 
-AForm::~AForm() {}
-
+AForm::~AForm()
+{
+    
+}
 AForm& AForm::operator=(const AForm& other)
 {
     if (this != &other)

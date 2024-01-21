@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:36:29 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/15 14:24:54 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/02 18:14:21 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm(const RobotomyRequestForm& copy);
 		~RobotomyRequestForm();
 		RobotomyRequestForm&	operator=(const RobotomyRequestForm& other);
-		void execute(Bureaucrat const & executor) const;
+		int execute(Bureaucrat const & executor) const;
 };
 
 

@@ -6,14 +6,13 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:18:57 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/24 11:47:46 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/24 17:56:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
 
 // CHECK TYPE FUNCTIONS :
-
 
 bool	is_pseudo(std::string& input)
 {
@@ -29,160 +28,101 @@ bool	is_char(std::string& input)
 }
 bool	is_int(std::string& input)
 {
-	int i = 0;
-	if (input[i] == '+' || input[i] == '-')
-		i++;
-	while (input[i++])
-	{
-		if (!isdigit(input[i]))
-			return false;
-	}
-	return true;
+    std::istringstream iss(input);
+    int value;
+    return (iss >> value) && (iss.eof());
 }
+
+bool is_double(const std::string& input)
+{
+    std::istringstream iss(input);
+    double value;
+    return (iss >> value) && (iss.eof());
+}
+
 bool is_float(std::string& input)
 {
-    if (input.empty() || input.back() != 'f')
-        return false;
-    try
-	{
-        std::stof(input);
-        return true;
-    }
-	catch (const std::exception&)
-	{
-        return false;
-    }
-}
-
-bool is_double(std::string& input)
-{
-	if (input.empty() || input.back() == '.' || input.front() == '.')
+	if (is_double(input) && input.back() != 'f')
 		return false;
-	bool	dot = false;
-	bool	digit = false;
-	for (size_t i = 0 ; i < input.length() ; i++ )
-	{
-		if (input[i] == '.')
-		{
-			if (dot || !digit)
-				return false;
-			dot = true;
-		}
-		else if (!isdigit(input[i]))
-			return false;
-		else
-			digit = true;
-	}
 	return true;
 }
 
-// Convert to char :
-void	convert_to_char(std::string input)
+// PRINT TYPES :
+
+void	print_char(double	value)
 {
-	int result = std::stoi(input);
-	
-	if (!std::isprint(result) || result == '\0')
-		std::cout << " char :" << "input non displayable" << std::endl;
+	int	res = static_cast<int>(value); 
+	if (!std::isprint(res) || res == 0)
+		std::cout << "char : input non displayable" << std::endl;
 	else
-		std::cout << " char :" << static_cast<char>(result) << std::endl;
-	std::cout << " int :" << static_cast<int>(result) << std::endl;
-	std::cout << " double :" << std::fixed << std::setprecision(1) << static_cast<double>(std::stod(input)) << std::endl;
-	std::cout << " float :" << std::fixed << std::setprecision(1) << static_cast<float>(std::stof(input))<< "f"<<std::endl;
+		std::cout << "char   : " << static_cast<char>(value) << std::endl;
 }
 
-// Convert to int :
 
 bool int_out_of_range(int value)
 {
 	return value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max();
 }
 
-void		convert_to_int(std::string& input)
+
+void	print_int(double	value)
 {
-	int result = std::stoi(input);
-	
-	if (!std::isprint(result) || result == '\0')
-		std::cout << " char :" << "input non displayable" << std::endl;
+	int	res = static_cast<int>(value); 
+	if (int_out_of_range(res))
+		std::cout << "int : int out of range !" << std::endl;
 	else
-		std::cout << " char :" << static_cast<char>(result) << std::endl;
-	if (int_out_of_range(result))
-		std::cout << "int :" << "input out of <int> range !" << std::endl;
-	else
-		std::cout << " int :" << static_cast<int>(result) << std::endl;
-	std::cout << " double :" << std::fixed << std::setprecision(1) << static_cast<double>(std::stod(input)) << std::endl;
-	std::cout << " float :" << std::fixed << std::setprecision(1) << static_cast<float>(std::stof(input))<< "f"<<std::endl;
+		std::cout << "int    : " << static_cast<int>(value) << std::endl;
 }
 
-// Convert to double :
-
-void	convert_to_double(std::string& input)
+void	print_double(double	value)
 {
-	double result = std::stod(input);
-	
-	if (!std::isprint(result) || result == '\0')
-		std::cout << " char :" << "input non displayable" << std::endl;
+	int res = static_cast<int>(value);
+	if ((value - res) == 0)
+		std::cout << "double : " << value << ".0"<< std::endl;
 	else
-		std::cout << " char :" << static_cast<char>(result) << std::endl;
-	if (int_out_of_range(result))
-		std::cout << "int :" << "input out of <int> range !" << std::endl;
-	else
-		std::cout << " int :" << static_cast<int>(result) << std::endl;
-	std::cout << " double :" << std::fixed << std::setprecision(1) << static_cast<double>(result) << std::endl;
-	std::cout << " float :" << std::fixed << std::setprecision(1) << static_cast<float>(std::stof(input))<< "f"<<std::endl;
+		std::cout << "double : " << value << std::endl;
 }
 
-// Convert to float
 
-void	convert_to_float(std::string& input)
+void	print_float(double	value)
 {
-	double result = std::stof(input);
-	
-	if (!std::isprint(result) || result == '\0')
-		std::cout << " char :" << "input non displayable" << std::endl;
+	int	res = static_cast<int>(value); 
+	if ((value - res) == 0)
+		std::cout << "float  : " << static_cast<float>(value) << ".0f"<< std::endl;
 	else
-		std::cout << " char :" << static_cast<char>(result) << std::endl;
-	if (int_out_of_range(result))
-		std::cout << "int :" << "input out of <int> range !" << std::endl;
-	else
-		std::cout << " int :" << static_cast<int>(result) << std::endl;
-	std::cout << " double :" << std::fixed << std::setprecision(1) << static_cast<double>(std::stod(input)) << std::endl;
-	std::cout << " float :" << std::fixed << std::setprecision(1) << static_cast<float>(result)<< "f"<<std::endl;
-	
+		std::cout << "float  : " << static_cast<float>(value) << "f"<< std::endl;
 }
 
-// SET TYPE :
 
-t_type	is_type(std::string& input)
+void	start_converting(double	value)
 {
-	if (is_char(input))
-		return CHAR;
-	else if (is_int(input))
-		return INT;
-	else if (is_float(input))
-		return FLOAT;
-	else
-		return DOUBLE;
+	print_char(value);
+	print_int(value);
+	print_float(value);
+	print_double(value);
 }
-
 // Convert static function :
 
 void	ScalarConverter::convert(std::string& input)
 {
-	int type = is_type(input);
-	switch (type)
+
+	std::stringstream param;
+
+	size_t f_pos = input.find('f');
+	if (f_pos != std::string::npos)
 	{
-		case CHAR:
-			convert_to_char(input);
-			break;
-		case INT:
-			convert_to_int(input);
-			break;
-		case DOUBLE:
-			convert_to_double(input);
-			break;
-		case FLOAT:
-			convert_to_float(input);
-			break;
+		std::string numeric_part = input.substr(0, f_pos);
+		double res;
+		param << numeric_part;
+		param >> res;
+		start_converting(res);
+	}
+	else
+	{
+		param << input;
+		double	res;
+		param >> res;
+		start_converting(res);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:14:00 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/24 11:19:17 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/24 13:33:33 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 
 
 #include <iostream>
-#include <string>
-#include <cctype>
 #include <limits>
 #include <exception>
 #include <sstream>

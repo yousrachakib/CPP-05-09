@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 19:16:09 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/24 20:00:33 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/25 13:37:54 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ int main()
 
 	uintptr_t serialized = Serializer::serialize(&data);
     Data* deserialized = Serializer::deserialize(serialized);
+
+
+	std::cout << " serialized uintptr_t hold this value : " << serialized << std::endl;
+	std::cout << " deserialized Data * hold this value : " << deserialized << std::endl;
+	std::cout << " &data hold this value : " << &data << std::endl;
 
 	if (deserialized == &data)
 		std::cout << "Well Done" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:18:57 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/24 17:56:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/25 11:04:02 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ bool	is_pseudo(std::string& input)
 }
 bool	is_char(std::string& input)
 {
-	if (input.length() == 1 && !input.empty())
+	if ((input.length() == 1 && !input.empty() )|| (input.length() == 3 && input[0] == '\'' && input[2] == '\''))
 		return true;
 	return false;
 }
@@ -117,6 +117,13 @@ void	ScalarConverter::convert(std::string& input)
 		param >> res;
 		start_converting(res);
 	}
+	else if (is_char(input))
+	{
+		param << input;
+		char res ;
+		param >> res;
+		start_converting(res);
+	}
 	else
 	{
 		param << input;
@@ -141,15 +148,15 @@ void	handle_pseudo(std::string& input)
 	{
 		std::cout << " char   : impossible " << std::endl;
 		std::cout << " int    : impossible"  << std::endl;
-		std::cout << " double : -inf" << std::endl;
 		std::cout << " float  : -inff" << std::endl;
+		std::cout << " double : -inf" << std::endl;
 	}
 	else if (input == "nan" || input == "nanf")
 	{
 		std::cout << " char   : impossible " << std::endl;
 		std::cout << " int    : impossible"  << std::endl;
-		std::cout << " double : nan" << std::endl;
 		std::cout << " float  : nanf" << std::endl;
+		std::cout << " double : nan" << std::endl;
 	}
 }
 

@@ -6,11 +6,35 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 19:16:09 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/25 13:37:54 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:56:26 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Serializer.hpp"
+
+// Canonical Form :
+
+Serializer::Serializer()
+{
+	
+}
+
+Serializer::Serializer(Serializer& copy)
+{
+	*this = copy;
+}
+const Serializer&	Serializer::operator=(const Serializer &other)
+{
+	(void)other;
+	return *this;
+}
+
+Serializer::~Serializer()
+{
+	
+}
+
+
 
 uintptr_t	Serializer::serialize(Data *ptr)
 {

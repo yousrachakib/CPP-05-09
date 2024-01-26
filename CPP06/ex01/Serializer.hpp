@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 18:51:51 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/24 19:40:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/25 20:38:14 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ class Serializer
 {
 	private :
 		Serializer();
+		Serializer(Serializer& copy);
+		const Serializer& operator=(const Serializer &other);
+		~Serializer();
 	public :
 		static uintptr_t	serialize(Data * ptr);
 		static Data *		deserialize(uintptr_t raw);

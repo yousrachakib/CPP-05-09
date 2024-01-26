@@ -6,17 +6,17 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 14:03:34 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/25 14:56:47 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:57:11 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Base.hpp"
 
-
+Base::~Base(){};
 
 Base * generate(void)
 {
-	int random = std::rand() % 3; //generate random number between 0 and 2;
+	int random = std::rand() % 3;
 
 	switch (random)
 	{
@@ -37,9 +37,9 @@ void	identify(Base* p)
 	if (dynamic_cast<A*>(p))
 		std::cout << "Congratulation its an [A] type" << std::endl;
 	else if (dynamic_cast<B*>(p))
-		std::cout << "Congratulation its an [B] type" << std::endl;
+		std::cout << "Congratulation its a [B] type" << std::endl;
 	else if (dynamic_cast<C*>(p))
-		std::cout << "Congratulation its an [C] type" << std::endl;
+		std::cout << "Congratulation its a [C] type" << std::endl;
 	else
 		std::cout << "NOT UR LUCKY DAY!!" << std::endl;
 }
@@ -55,21 +55,21 @@ void	identify(Base& p)
 		a = dynamic_cast<A&>(p);
 		std::cout << "Congratulation its an [A] type" << std::endl;
 	}
-	catch(const std::exception& e)
+	catch(const std::bad_cast& e)
 	{
 		try
 		{
 			b = dynamic_cast<B&>(p);
-			std::cout << "Congratulation its an [B] type" << std::endl;
+			std::cout << "Congratulation its a [B] type" << std::endl;
 		}
-		catch(const std::exception& e)
+		catch(const std::bad_cast& e)
 		{
 			try
 			{
 				c = dynamic_cast<C&>(p);
-				std::cout << "Congratulation its an [C] type" << std::endl;
+				std::cout << "Congratulation its a [C] type" << std::endl;
 			}
-			catch(const std::exception& e)
+			catch(const std::bad_cast& e)
 			{
 				std::cout << "NOT UR LUCKY DAY!!" << std::endl;
 			}
@@ -81,12 +81,12 @@ void	identify(Base& p)
 
 int main()
 {
-	// Base o;
+	Base o;
 	Base *obj = generate();
 	identify(obj);
 	identify(*obj);
-	// identify(o);
-	// Base& ref = o;
-	// identify(ref);
+	identify(o);
+	Base& ref = o;
+	identify(ref);
 	delete obj;	
 }

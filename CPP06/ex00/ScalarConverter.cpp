@@ -6,11 +6,29 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:18:57 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/25 11:04:02 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:32:10 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+
+
+//Canonical Form :
+
+ScalarConverter::ScalarConverter() {}
+
+ScalarConverter::ScalarConverter(const ScalarConverter& copy)
+{
+	*this = copy;
+}
+
+ScalarConverter& ScalarConverter::operator=(const ScalarConverter& other)
+{
+	(void)other;
+	return (*this);
+}
+
+ScalarConverter::~ScalarConverter() {}
 
 // CHECK TYPE FUNCTIONS :
 
@@ -61,7 +79,7 @@ void	print_char(double	value)
 
 bool int_out_of_range(int value)
 {
-	return value < std::numeric_limits<int>::min() || value > std::numeric_limits<int>::max();
+	return value <= std::numeric_limits<int>::min() || value >= std::numeric_limits<int>::max();
 }
 
 
@@ -117,7 +135,7 @@ void	ScalarConverter::convert(std::string& input)
 		param >> res;
 		start_converting(res);
 	}
-	else if (is_char(input))
+	else if (is_char(input) && !is_int(input))
 	{
 		param << input;
 		char res ;

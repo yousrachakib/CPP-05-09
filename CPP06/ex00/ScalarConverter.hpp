@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:14:00 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/25 11:28:24 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/26 12:22:05 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,16 @@
 
 #include <iostream>
 #include <limits>
-#include <exception>
 #include <sstream>
 #include <iomanip> 
-
-typedef enum s_type
-{
-	CHAR,
-	INT,
-	DOUBLE,
-	FLOAT,
-} t_type;
 
 class ScalarConverter
 {
 	private :
-		ScalarConverter(); // Private constructor to prevent instantiation
+		ScalarConverter();
+		ScalarConverter(const ScalarConverter& copy);
+		ScalarConverter& operator=(const ScalarConverter& other);
+		~ScalarConverter();
 	public :
 		static void	convert(std::string& input);
 };

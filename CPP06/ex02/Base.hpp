@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 13:51:05 by yochakib          #+#    #+#             */
-/*   Updated: 2024/01/25 14:51:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:56:51 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 class Base
 {
 	public : 
-		virtual ~Base(){};
+		virtual ~Base();
 };
 
 class A : public Base 

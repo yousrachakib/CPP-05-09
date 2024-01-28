@@ -4,9 +4,9 @@ CC = c++
 RM = rm -f
 CPPFLAGS = -Wall -Wextra -Werror -std=c++98
 
-HEADER = Iter.hpp
+HEADER = Array.hpp
 
-NAME = Iteryy
+NAME = Arrayy
 
 all: $(NAME)
 

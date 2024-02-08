@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 01:03:56 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/06 01:52:49 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/06 17:13:05 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class Span
 		Span& operator=(const Span& other);
 		~Span();
 		void addNumber(int value);
+		void addNumbers(int	first, int last);
 		int  shortestSpan() const;
 		int  longestSpan() const;
 		

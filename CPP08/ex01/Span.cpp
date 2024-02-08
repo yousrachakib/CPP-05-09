@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 01:15:29 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/06 15:34:12 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/06 19:10:24 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ void	Span::addNumber(int value)
 	if (this->my_vector.size() >= this->N)
 		throw std::runtime_error("size out of range permited");
 	this->my_vector.push_back(value);
+}
+
+void	Span::addNumbers(int first, int last)
+{
+	int num_toadd = std::abs(last - first + 1);
+	if (this->my_vector.size()  + num_toadd > this->N)
+		throw std::runtime_error("size out of range permited");
+	for (int i = first ; i <= last ; i++)
+		this->addNumber(i);
 }
 
 int  Span::shortestSpan() const

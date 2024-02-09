@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   MutantStack.hpp                                    :+:      :+:    :+:   */
+/*   MutantStack.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 14:11:29 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/08 19:10:18 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/09 15:08:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,22 @@
 #include <stack>
 #include <iterator>
 
-template < typename T, typename Container = std::deque<T> >
-class MuntantStack
+template < typename T>
+class MutantStack : public std::stack<T>
 {
 	private :
-		std::stack<T, Container>  stack_;
+		std::stack<T>  stack_;
 	public :
-		typedef typename Container::iterator iterator;
-		typedef typename Container::const_iterator const_iterator;
-		bool	empty(void) const;
-		size_t	size(void) const;
-		T&		top(void);
-		const T&		top(void) const;
-		void	push(const T& value);
-		void	pop(void);
-		iterator	begin(void);
-		iterator	end(void);
-		const_iterator begin(void) const;
-		const_iterator end(void) const;
+		MutantStack() {};
+		~MutantStack() {};
+		typedef typename  std::deque<T>::iterator iterator;
+		MutantStack& operator=(const MutantStack& other)
+		{
+			if (this != &other)
+				this->c = other.c;
+			return (*this);
+		}
+		iterator	begin(void) {return this->c.begin();}
+		iterator	end(void){return this->c.end();}
 };
 #endif

@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:32:18 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/11 13:40:16 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/11 17:58:54 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ std::string trim(const std::string& str)
 
 bool check_date(const std::string& date)
 {
-    if (date.length() != 11)
+    if (date.length() != 10)
         return false;
 
     if (date[4] != '-' || date[7] != '-')
@@ -78,6 +78,22 @@ bool check_date(const std::string& date)
 
 bool    check_value(const std::string& value)
 {
+	int flag = 0;
+	for (size_t i = 0 ; i < value.length() ; i++)
+	{
+		if (value[i] == '.')
+			flag++;
+	}
+	// if (flag > 1)
+	// {
+	// 	std::cout << "flag :" << flag << "\n";
+	// 	return (false);
+	// }
+	for (size_t i = 0 ; i < value.length() ; i++)
+	{
+		if (!isdigit(value[i]) && flag != 1)
+			return false;
+	}
     float val = atof(value.c_str());
     if (val <= 0 || val >= 1000)
         return (false);
@@ -134,14 +150,16 @@ void	read_parse_inputfile(const std::string& file, std::map<std::string, float>&
     if (!inputFile)
 		throw std::runtime_error("Error: could not open inputfile.");
 	std::getline(inputFile, line);
-	if ( line != "date | value" ||line.empty())
+	if ( line != "date | value" || line.empty())
 		throw std::runtime_error("Error: could not open inputfile.");
     while (std::getline(inputFile, line))
     {
         std::istringstream iss(line);
         std::string date, value;
-        if (std::getline(iss, date, '|') && std::getline(iss, value))
+        if (std::getline(iss, date, '|') && std::getline(iss, value) && !line.empty())
         {
+			if (line.find_first_not_of('\n') == std::string::npos)
+            	continue;
             if (!check_date(trim(date)))
             {
                 std::cerr << "Error: Invalid date format: " << trim(date) << std::endl;
@@ -152,16 +170,16 @@ void	read_parse_inputfile(const std::string& file, std::map<std::string, float>&
                 std::cerr << "Error: Invalid value format or out of range: " << trim(value) << std::endl;
                 continue;
             }
-			closest_bound(exchangeRates, date, value);
+			closest_bound(exchangeRates,trim(date),trim(value));
         }
-		else if (value.empty())
+		if (!line.empty() && value.empty())
 		{
-			std::cerr << "Error: bad input : => " << date << std::endl;
+			std::cerr << "Error: bad input : => " << trim(date) << std::endl;
 			continue;
 		}
-		else if (date.empty())
+		if (!line.empty() && date.empty())
 		{
-			std::cerr << "Error: bad input : => " << value << std::endl;
+			std::cerr << "Error: bad input : => " << trim(value) << std::endl;
 			continue;
 		}
     }

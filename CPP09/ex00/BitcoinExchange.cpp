@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/10 12:32:18 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/11 17:58:54 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/12 13:25:55 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,7 @@ void	read_parse_inputfile(const std::string& file, std::map<std::string, float>&
     if (!inputFile)
 		throw std::runtime_error("Error: could not open inputfile.");
 	std::getline(inputFile, line);
-	if ( line != "date | value" || line.empty())
+	if ( trim(line) != "date | value" || line.empty())
 		throw std::runtime_error("Error: could not open inputfile.");
     while (std::getline(inputFile, line))
     {

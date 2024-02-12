@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/11 20:06:45 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/11 20:24:25 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/11 23:25:50 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,22 @@ int evaluate_RPN(const std::string& input)
 	{
 		if (is_operator(token))
 		{
+			// std::cout << "token : " << token << std::endl;
 			if (!perfom_operators(my_stack, token))
 				throw std::runtime_error("Error: Invalid expression or division by zero.");
 		}
-		else
+		else 
 		{
+			for (size_t i = 0 ; i < token.length() ; i++)
+			{
+				if (!isdigit(token[i]))
+					throw std::runtime_error("Error.");
+			}
 			int res = std::atoi(token.c_str());
+			if (res < 0 || res > 9)
+				throw std::runtime_error("Error.");
 			my_stack.push(res);
+			// std::cout << "res : " << res << std::endl;
 		}
 	}
 	if (my_stack.size() != 1)

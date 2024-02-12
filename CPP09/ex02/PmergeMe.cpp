@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:32 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/12 21:27:27 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/12 22:10:27 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,28 @@ std::vector<int> generateJacobsthalNumbers(int size, std::vector<int> &real)
 
     return jacobsthalNumbers;
 }
+std::vector<int> generate_combination(std::vector<int> jacobsthal_sequence,std::vector<int> real_index)
+{
+	int lastJacobsthalNumber = 2;
+	std::vector<int> _combined;
+	(void)real_index;
+	 for (size_t i = 3; i < jacobsthal_sequence.size(); i++)
+    {
+        size_t index = jacobsthal_sequence[i];
+        if (index > jacobsthal_sequence.size())
+            break;
+		_combined.push_back(jacobsthal_sequence[i]);//3 2 5 4 11 10 9 8 7 6
+
+        for (int j = jacobsthal_sequence[i] - 1; j > lastJacobsthalNumber; j--)
+        {
+            _combined.push_back(j);
+        }
+		if (i == 3)
+            _combined.push_back(lastJacobsthalNumber);
+        lastJacobsthalNumber = jacobsthal_sequence[i];
+    }
+	return (_combined);
+}
 
 void PmergeMe::Ford_Johnson()
 {
@@ -93,6 +115,7 @@ void PmergeMe::Ford_Johnson()
 	}
 	std::vector<int> real_index;
 	std::vector<int> jacobsthal_sequence = generateJacobsthalNumbers(ve_pend.size(), real_index);
+	std::vector<int> combination_index = generate_combination(jacobsthal_sequence, real_index); 
 	// for (std::vector<int>::iterator it = jacobsthal_sequence.begin() ; it != jacobsthal_sequence.end(); it++)
 	// {
 	// 	std::cout << "jacob :" << *it << std::endl;

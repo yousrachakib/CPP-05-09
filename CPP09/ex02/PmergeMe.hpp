@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:45 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/13 17:15:41 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:05:48 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,16 @@
 #include <exception>
 #include <string>
 #include <utility>
+#include <sys/time.h>
 
 class PmergeMe
 {
 	private : 
 		int struggler_ve;
 		int struggler_dq;
+		long long time;
+		double time_to_process_ve;
+		double time_to_process_dq;
 		std::vector<int> ve;
 		std::deque<int>	 dq;
 		std::vector<int> ve_jacobsthalNumbers;
@@ -38,6 +42,8 @@ class PmergeMe
 		// PmergeMe& operator=(const PmergeMe& other);
 		// PmergeMe(std::string &input);
 		~PmergeMe();
+		long long gettime();
+		void 	print_res(std::deque<int> &main_chain);
 		void	Parse_input(std::string &input);
 		void	Ford_Johnson_vec();
 		void	Ford_Johnson_dq();

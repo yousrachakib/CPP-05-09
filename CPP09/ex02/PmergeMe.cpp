@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:32 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/13 17:21:30 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/13 18:14:39 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,14 +117,13 @@ std::deque<int> generate_combination_dq(std::deque<int> jacobsthal_sequence)
 
 void PmergeMe::Ford_Johnson_vec()
 {
+	this->time = gettime();
 	for (size_t i = 0; i < ve.size() - 1; i += 2)
 		ve_pairs.push_back(std::make_pair(ve[i], ve[i+1]));
 	if (ve.size() % 2 == 1)
 	{
 		this->struggler_ve = *(this->ve.end());
-		std::cout << "vector struggler : " << this->struggler_ve << "\n";
 	}
-	
 	for (size_t i = 0; i < ve_pairs.size(); ++i)
 	{
     	if (ve_pairs[i].first < ve_pairs[i].second)
@@ -139,7 +138,6 @@ void PmergeMe::Ford_Johnson_vec()
 	for (std::vector<std::pair<int , int> >::iterator it  = ve_pairs.begin() + 1; it != ve_pairs.end() ; it++)
 	{
 		ve_pend.push_back(it->second);
-		std::cout << "vector before : "<< (it)->second << " " << std::endl;;	
 	}
 	generateJacobsthalNumbers(ve_pend.size());
 	std::vector<int> combination_index = generate_combination_ve(this->ve_jacobsthalNumbers); 
@@ -147,15 +145,21 @@ void PmergeMe::Ford_Johnson_vec()
 		binary_search(ve_pend[*it - 1], ve_chain);
 	binary_search(ve_pend[0], ve_chain);
 	binary_search(this->struggler_ve, ve_chain);
-	for (std::vector<int>::iterator it = ve_chain.begin() ; it != ve_chain.end(); it++)
-	{
-		std::cout << "vector main chain :" << *it << std::endl;
-	}
+	this->time_to_process_ve = ((gettime() - this->time) / 1000000.0);
 }
 
+long long     PmergeMe::gettime()//time in mirco seconds
+{
+    struct timeval te;
+    gettimeofday(&te, NULL); // get current time
+    long long microseconds = te.tv_sec*1000000LL + te.tv_usec;
+    return microseconds;
+}
 
 void PmergeMe::Ford_Johnson_dq()
 {
+	this->time = gettime();
+	std::cout << "=> " << this->time << "\n";
 	for (size_t i = 0; i < ve.size() - 1; i += 2)
 		dq_pairs.push_back(std::make_pair(dq[i], dq[i+1]));
 	if (dq.size() % 2 == 1)
@@ -177,7 +181,6 @@ void PmergeMe::Ford_Johnson_dq()
 	for (std::deque<std::pair<int , int> >::iterator it  = dq_pairs.begin() + 1; it != dq_pairs.end() ; it++)
 	{
 		dq_pend.push_back(it->second);
-		std::cout << "deque before : "<< (it)->second << " " << std::endl;	
 	}
 	std::deque<int> combination_index = generate_combination_dq(this->dq_jacobsthalNumbers); 
 	for (std::deque<int>::iterator it = combination_index.begin(); it != combination_index.end(); ++it)
@@ -186,8 +189,23 @@ void PmergeMe::Ford_Johnson_dq()
 	}
 	binary_search_dq(dq_pend[0], dq_chain);
 	binary_search_dq(this->struggler_dq, dq_chain);
-	for (std::deque<int>::iterator it = dq_chain.begin() ; it != dq_chain.end(); it++)
+	this->time_to_process_dq = ((gettime() -  this->time) / 1000000.0);
+	print_res(dq_chain);
+}
+void PmergeMe::print_res(std::deque<int> &main_chain)
+{
+	std::cout << "before :";
+	for (std::deque<int>::iterator it = dq.begin() ; it != dq.end(); it++)
 	{
-		std::cout << "deque main chain :" << *it << std::endl;
+		std::cout << " " << *it << " ";
 	}
+	std::cout << std::endl;
+	std::cout << "after  :";
+	for (std::deque<int>::iterator it = main_chain.begin() ; it != main_chain.end(); it++)
+	{
+		std::cout << " " << *it << " ";
+	}
+	std::cout << std::endl;
+	std::cout << "Time to process a range of " << this->dq.size() << " elements with std::deque<int> :" << this->time_to_process_dq << " us"<< std::endl; 
+	std::cout << "Time to process a range of " << this->ve.size() << " elements with std::vector<int> :" << this->time_to_process_ve << " us"<<std::endl;
 }

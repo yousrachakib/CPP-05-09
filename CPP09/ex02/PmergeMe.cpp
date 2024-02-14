@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:32 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/14 13:10:52 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/14 15:52:37 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,14 +103,18 @@ void PmergeMe::generateJacobsthalNumbers(int size)
 		dq_jacobsthalNumbers.push_back(jaco);
     }
 }
-std::vector<int> generate_combination_ve(std::vector<int> jacobsthal_sequence)
+std::vector<int> generate_combination_ve(std::vector<int> jacobsthal_sequence, size_t size)
 {
 	int lastJacobsthalNumber = 2;
 	std::vector<int> _combined;
-	for (size_t i = 3; i < jacobsthal_sequence.size(); i++)
+	if (size <= 3)
+	{
+		_combined.push_back(2);
+	}
+	for (size_t i = 3; i < size; i++)
     {
         size_t index = jacobsthal_sequence[i];
-        if (index > jacobsthal_sequence.size())
+        if (index > size)
             break;
 		_combined.push_back(jacobsthal_sequence[i]);
 
@@ -177,13 +181,29 @@ void PmergeMe::Ford_Johnson_vec()
 		ve_pend.push_back(it->second);
 	}
 	generateJacobsthalNumbers(ve_pend.size());
-	std::vector<int> combination_index = generate_combination_ve(this->ve_jacobsthalNumbers); 
-	for (std::vector<int>::iterator it = combination_index.begin(); it != combination_index.end(); it++)
-		binary_search(ve_pend[*it - 1], ve_chain);
+	std::vector<int> combination_index = generate_combination_ve(this->ve_jacobsthalNumbers, ve_pend.size()); 
+	for (std::vector<int>::iterator it = combination_index.begin(); it != combination_index.end() && !ve_pend.empty(); ++it)
+	{
+		if ((*it -1) < (int)ve_pend.size())
+		{
+			if (std::find(ve_chain.begin(), ve_chain.end(), ve_pend[*it - 1]) != ve_chain.end())
+				continue;
+			binary_search(ve_pend[*it - 1], ve_chain);
+		}
+	}
 	if (!ve_pend.empty())
-		binary_search(ve_pend[0], ve_chain);
+	{
+		for (size_t i = 0 ; i < ve_pend.size() ; i++)
+		{
+			if (!ve_pend.empty() && std::find(ve_chain.begin(), ve_chain.end(), ve_pend[i]) != ve_chain.end())
+				continue;
+			binary_search(ve_pend[i], ve_chain);
+		}
+	}
 	if (ve.size() % 2 == 1)
+	{
 		binary_search(this->struggler_ve, ve_chain);
+	}
 	this->time_to_process_ve = ((gettime() - this->time) / 1000000.0);
 	print_res(ve_chain);
 }
@@ -227,12 +247,24 @@ void PmergeMe::Ford_Johnson_dq()
 		dq_pend.push_back(it->second);
 	}
 	std::deque<int> combination_index = generate_combination_dq(this->dq_jacobsthalNumbers); 
-	for (std::deque<int>::iterator it = combination_index.begin(); it != combination_index.end(); ++it)
+	for (std::deque<int>::iterator it = combination_index.begin(); it != combination_index.end() && !dq_pend.empty(); ++it)
 	{
-		binary_search_dq(dq_pend[*it - 1], dq_chain);
+		if ((*it -1) < (int)dq_pend.size())
+		{
+			if (std::find(dq_chain.begin(), dq_chain.end(), dq_pend[*it - 1]) != dq_chain.end())
+				continue;
+			binary_search_dq(dq_pend[*it - 1], dq_chain);
+		}
 	}
 	if (!dq_pend.empty())
-		binary_search_dq(dq_pend[0], dq_chain);
+	{
+		for (size_t i = 0 ; i < dq_pend.size() ; i++)
+		{
+			if (!dq_pend.empty() && std::find(dq_chain.begin(), dq_chain.end(), dq_pend[i]) != dq_chain.end())
+				continue;
+			binary_search_dq(dq_pend[i], dq_chain);
+		}
+	}
 	if (dq.size() % 2 == 1)
 		binary_search_dq(this->struggler_dq, dq_chain);
 	this->time_to_process_dq = ((gettime() -  this->time) / 1000000.0);

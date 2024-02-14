@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:32 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/13 18:14:39 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:10:52 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,28 @@
 #include <algorithm>
 
 // DONT FORGET CANNICAL FORM:
+PmergeMe::PmergeMe() {}
+
+PmergeMe::PmergeMe(const PmergeMe& copy) 
+{
+ 	*this = copy;
+}
+
+PmergeMe& PmergeMe::operator=(const PmergeMe& other)
+{
+	if (this != &other)
+	{
+		this->dq = other.dq;
+		this->ve = other.ve;
+		this->ve_pairs = other.ve_pairs;
+		this->dq_pairs = other.dq_pairs;
+		this->dq_jacobsthalNumbers = other.dq_jacobsthalNumbers;
+		this->ve_jacobsthalNumbers = other.ve_jacobsthalNumbers;
+	}
+	return (*this);
+}
 
 PmergeMe::~PmergeMe() {}
-
-
 
 void binary_search(int value, std::vector<int> &ve_chain)
 {
@@ -53,7 +71,21 @@ void	PmergeMe::Parse_input(std::string &input)
 		else
 			throw std::runtime_error("Error: Invalid input format. Only positive integers are allowed.");
 	}
-	
+	duplicate(this->ve);
+}
+
+void duplicate(std::vector<int> vec)
+{
+	if (vec.size() < 2)
+		throw std::runtime_error("Error : can't sort 1 number .");
+	for (size_t i = 0; i < vec.size(); i++)
+	{
+		for (size_t j = (i + 1); j < vec.size() ; j++)
+		{
+			if (vec[i] == vec[j])
+				throw std::runtime_error("Error : Duplicate numbers .");
+		}
+	}
 }
 void PmergeMe::generateJacobsthalNumbers(int size)
 {
@@ -80,7 +112,7 @@ std::vector<int> generate_combination_ve(std::vector<int> jacobsthal_sequence)
         size_t index = jacobsthal_sequence[i];
         if (index > jacobsthal_sequence.size())
             break;
-		_combined.push_back(jacobsthal_sequence[i]);//3 2 5 4 11 10 9 8 7 6
+		_combined.push_back(jacobsthal_sequence[i]);
 
         for (int j = jacobsthal_sequence[i] - 1; j > lastJacobsthalNumber; j--)
         {
@@ -102,7 +134,7 @@ std::deque<int> generate_combination_dq(std::deque<int> jacobsthal_sequence)
         size_t index = jacobsthal_sequence[i];
         if (index > jacobsthal_sequence.size())
             break;
-		_combined.push_back(jacobsthal_sequence[i]);//3 2 5 4 11 10 9 8 7 6
+		_combined.push_back(jacobsthal_sequence[i]);
 
         for (int j = jacobsthal_sequence[i] - 1; j > lastJacobsthalNumber; j--)
         {
@@ -118,11 +150,16 @@ std::deque<int> generate_combination_dq(std::deque<int> jacobsthal_sequence)
 void PmergeMe::Ford_Johnson_vec()
 {
 	this->time = gettime();
-	for (size_t i = 0; i < ve.size() - 1; i += 2)
-		ve_pairs.push_back(std::make_pair(ve[i], ve[i+1]));
 	if (ve.size() % 2 == 1)
 	{
-		this->struggler_ve = *(this->ve.end());
+		for (size_t i = 0; i < ve.size() - 1; i += 2)
+			ve_pairs.push_back(std::make_pair(ve[i], ve[i+1]));
+		this->struggler_ve = this->ve[ve.size() - 1];
+	}
+	else
+	{
+		for (size_t i = 0; i < ve.size(); i += 2)
+			ve_pairs.push_back(std::make_pair(ve[i], ve[i+1]));
 	}
 	for (size_t i = 0; i < ve_pairs.size(); ++i)
 	{
@@ -143,9 +180,12 @@ void PmergeMe::Ford_Johnson_vec()
 	std::vector<int> combination_index = generate_combination_ve(this->ve_jacobsthalNumbers); 
 	for (std::vector<int>::iterator it = combination_index.begin(); it != combination_index.end(); it++)
 		binary_search(ve_pend[*it - 1], ve_chain);
-	binary_search(ve_pend[0], ve_chain);
-	binary_search(this->struggler_ve, ve_chain);
+	if (!ve_pend.empty())
+		binary_search(ve_pend[0], ve_chain);
+	if (ve.size() % 2 == 1)
+		binary_search(this->struggler_ve, ve_chain);
 	this->time_to_process_ve = ((gettime() - this->time) / 1000000.0);
+	print_res(ve_chain);
 }
 
 long long     PmergeMe::gettime()//time in mirco seconds
@@ -159,12 +199,16 @@ long long     PmergeMe::gettime()//time in mirco seconds
 void PmergeMe::Ford_Johnson_dq()
 {
 	this->time = gettime();
-	std::cout << "=> " << this->time << "\n";
-	for (size_t i = 0; i < ve.size() - 1; i += 2)
-		dq_pairs.push_back(std::make_pair(dq[i], dq[i+1]));
 	if (dq.size() % 2 == 1)
 	{
+		for (size_t i = 0; i < ve.size() - 1; i += 2)
+			dq_pairs.push_back(std::make_pair(dq[i], dq[i+1]));
 		this->struggler_dq = *(this->dq.end());
+	}
+	else
+	{
+		for (size_t i = 0; i < ve.size(); i += 2)
+			dq_pairs.push_back(std::make_pair(dq[i], dq[i+1]));
 	}
 	
 	for (size_t i = 0; i < dq_pairs.size(); ++i)
@@ -187,21 +231,22 @@ void PmergeMe::Ford_Johnson_dq()
 	{
 		binary_search_dq(dq_pend[*it - 1], dq_chain);
 	}
-	binary_search_dq(dq_pend[0], dq_chain);
-	binary_search_dq(this->struggler_dq, dq_chain);
+	if (!dq_pend.empty())
+		binary_search_dq(dq_pend[0], dq_chain);
+	if (dq.size() % 2 == 1)
+		binary_search_dq(this->struggler_dq, dq_chain);
 	this->time_to_process_dq = ((gettime() -  this->time) / 1000000.0);
-	print_res(dq_chain);
 }
-void PmergeMe::print_res(std::deque<int> &main_chain)
+void PmergeMe::print_res(std::vector<int> &main_chain)
 {
 	std::cout << "before :";
-	for (std::deque<int>::iterator it = dq.begin() ; it != dq.end(); it++)
+	for (std::vector<int>::iterator it = ve.begin() ; it != ve.end(); it++)
 	{
 		std::cout << " " << *it << " ";
 	}
 	std::cout << std::endl;
 	std::cout << "after  :";
-	for (std::deque<int>::iterator it = main_chain.begin() ; it != main_chain.end(); it++)
+	for (std::vector<int>::iterator it = main_chain.begin() ; it != main_chain.end(); it++)
 	{
 		std::cout << " " << *it << " ";
 	}

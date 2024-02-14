@@ -6,7 +6,7 @@
 /*   By: yochakib <yochakib@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 15:06:45 by yochakib          #+#    #+#             */
-/*   Updated: 2024/02/13 18:05:48 by yochakib         ###   ########.fr       */
+/*   Updated: 2024/02/14 13:02:23 by yochakib         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ class PmergeMe
 		std::deque<std::pair<int, int> > dq_pairs;
 		
 	public :
-		// PmergeMe();
-		// PmergeMe(const PmergeMe& copy);
-		// PmergeMe& operator=(const PmergeMe& other);
-		// PmergeMe(std::string &input);
+		PmergeMe();
+		PmergeMe(const PmergeMe& copy);
+		PmergeMe& operator=(const PmergeMe& other);
 		~PmergeMe();
 		long long gettime();
-		void 	print_res(std::deque<int> &main_chain);
+		void 	print_res(std::vector<int> &main_chain);
 		void	Parse_input(std::string &input);
 		void	Ford_Johnson_vec();
 		void	Ford_Johnson_dq();
@@ -51,6 +50,7 @@ class PmergeMe
 		
  };
 
+void duplicate(std::vector<int> vec);
 void binary_search(int value, std::vector<int> &ve_chain);
 
 
